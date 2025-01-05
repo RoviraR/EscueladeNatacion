@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewData["Title"] = "NoPlaces";
+}
+
+<style>
+    body {
+        background: url('/images/FondoPiscina.webp') no-repeat center center fixed;
+        background-size: cover;
+        font-family: Arial, sans-serif;
+    }
+</style>
+
+<div class="content-container">
+    <h1 class="text-center my-4">Sin plazas disponibles</h1>
+
+    <div class="alert alert-warning text-center">
+        <p>Lo sentimos, no hay plazas disponibles para el curso: <strong>@ViewBag.Course</strong>.</p>
+        <p>Por favor, busca otro curso con plazas disponibles.</p>
+    </div>
+
+    <div class="text-center mt-4">
+        <a asp-action="Index" asp-controller="Course" class="btn btn-primary btn-lg">Ver Cursos</a>
+    </div>
+</div>
+

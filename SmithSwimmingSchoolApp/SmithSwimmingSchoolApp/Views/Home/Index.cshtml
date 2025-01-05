@@ -1,0 +1,94 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container px-5">
+    <header class="text-center py-5">
+        <h1 class="display-4 text-primary fw-bold">Bienvenidos a la Escuela de Natación</h1>
+        <p class="lead text-muted">Tu viaje acuático comienza aquí. Aprende, mejora y disfruta del agua con expertos.</p>
+        <img src="/images/fotohome.jpg" alt="Escuela de Natación" class="img-fluid rounded shadow" style="max-width: 600px; margin-top: 20px;" />
+    </header>
+
+    <section class="py-5">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <img src="/images/inicioabout.webp" alt="Sobre Nosotros" class="img-fluid rounded shadow" />
+            </div>
+            <div class="col-md-6">
+                <h2 class="text-secondary">¿Por qué elegirnos?</h2>
+                <p class="text-muted">En nuestra escuela, nos especializamos en brindar clases de natación para todas las edades y niveles. Ofrecemos:</p>
+                <ul class="list-unstyled">
+                    <li><strong>Clases personalizadas:</strong> Ajustadas a tus necesidades.</li>
+                    <li><strong>Cursos grupales:</strong> Ideales para aprender en un ambiente social.</li>
+                    <li><strong>Programas avanzados:</strong> Diseñados para nadadores competitivos.</li>
+                </ul>
+                <p class="text-muted">Nuestro equipo profesional garantiza tu aprendizaje y seguridad.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5 bg-light">
+        <div class="text-center">
+            <h2 class="text-primary">Descubre nuestros cursos</h2>
+            <p class="lead">Desde principiantes hasta nadadores avanzados, tenemos un programa perfecto para ti.</p>
+            <a asp-controller="Course" asp-action="Index" class="btn btn-primary btn-lg">Ver lista de cursos</a>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="card shadow">
+                    <img src="/images/cursoniños.jpg" class="card-img-top" alt="Curso para niños">
+                    <div class="card-body">
+                        <h5 class="card-title">Clases para niños</h5>
+                        <p class="card-text">Introducimos a los más pequeños al mundo de la natación de manera divertida y segura.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow">
+                    <img src="/images/cursoadultos.jpg" class="card-img-top" alt="Curso para adultos">
+                    <div class="card-body">
+                        <h5 class="card-title">Clases para adultos</h5>
+                        <p class="card-text">Aprende a nadar o perfecciona tu técnica en un entorno cómodo y profesional.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow">
+                    <img src="/images/cursoavanzado.webp" class="card-img-top" alt="Curso avanzado">
+                    <div class="card-body">
+                        <h5 class="card-title">Programas avanzados</h5>
+                        <p class="card-text">Entrenamiento especializado para nadadores que buscan competir y superarse.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5">
+        <div class="text-center">
+            <h2 class="text-secondary">Lo que dicen nuestros alumnos</h2>
+            <p class="text-muted">Descubre cómo hemos transformado vidas a través de la natación.</p>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <blockquote class="blockquote text-center">
+                    <p class="mb-0">"Las clases son increíbles, mi hijo ha ganado confianza en el agua."</p>
+                    <footer class="blockquote-footer mt-2">Ana López</footer>
+                </blockquote>
+            </div>
+            <div class="col-md-4">
+                <blockquote class="blockquote text-center">
+                    <p class="mb-0">"Gracias a los entrenadores, ahora puedo nadar con técnica perfecta."</p>
+                    <footer class="blockquote-footer mt-2">Carlos Martínez</footer>
+                </blockquote>
+            </div>
+            <div class="col-md-4">
+                <blockquote class="blockquote text-center">
+                    <p class="mb-0">"Recomiendo sus cursos avanzados, el entrenamiento es de primer nivel."</p>
+                    <footer class="blockquote-footer mt-2">Lucía Fernández</footer>
+                </blockquote>
+            </div>
+        </div>
+    </section>
+</div>
+

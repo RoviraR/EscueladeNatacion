@@ -1,0 +1,120 @@
+﻿@model IPagedList<SmithSwimmingSchoolApp.Models.Course>
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+
+@{
+    ViewData["Title"] = "Index";
+    var enrollments = ViewData["enrollments"] as IEnumerable<Enrollment>;
+}
+
+<style>
+    body {
+        background: url('/images/FondoPiscina.webp') no-repeat center center fixed;
+        background-size: cover;
+        font-family: Arial, sans-serif;
+    }
+</style>
+
+<div class="content-container">
+    <h1 class="text-center my-2">Cursos</h1>
+
+    @if (User.IsInRole("Administrator"))
+    {
+        <p class="text-center">
+            <a asp-action="Create" class="btn btn-success btn-lg mt-2">Añadir Curso</a>
+        </p>
+    }
+
+    <form method="get" class="mb-3">
+        <div class="form-group">
+            <label for="searchString">Buscar por Título:</label>
+            <input type="text" name="searchString" value="@ViewBag.CurrentFilter" class="form-control" placeholder="Ingrese título del curso" />
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">Buscar</button>
+    </form>
+
+    @if (ViewBag.Message != null)
+    {
+        <div class="alert alert-info">
+            @ViewBag.Message
+        </div>
+    }
+    else{
+        <table class="table table-striped table-bordered table-hover mt-2">
+            <thead class="table-dark">
+                <tr>
+                    <th>
+                        Titulo
+                    </th>
+                    <th>
+                        Entrenador
+                    </th>
+                    <th><a asp-action="Index" asp-route-sortOrder="@ViewBag.PlacesSortParam" asp-route-searchString="@ViewBag.CurrentFilter">Plazas</a></th>
+                    <th class="text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var course in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => course.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => course.Coach!.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => course.Places)
+                        </td>
+                        <td>
+                            <div class="action-buttons">
+                                @if (User.IsInRole("Administrator"))
+                                {
+                                    <a asp-action="Edit" asp-route-id="@course.CourseId" class="btn btn-warning btn-sm">Editar</a>
+                                    <a asp-action="Delete" asp-route-id="@course.CourseId" class="btn btn-danger btn-sm">Eliminar</a>
+                                    <a asp-action="CourseDetails" asp-route-id="@course.CourseId" class="btn btn-primary btn-sm">Organizar Grupos</a>
+                                }
+                                @if (User.IsInRole("Swimmer"))
+                                {
+                                    if (!enrollments.Any(e => e.CourseId == course.CourseId && e.SwimmerId == ViewBag.SwimmerId))
+                                    {
+                                        <a asp-controller="Enrollment" asp-action="EnrollSwimmer" asp-route-CourseId="@course.CourseId" class="btn btn-success btn-sm">Matricularme</a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-controller="Enrollment" asp-action="EnrollSwimmer" asp-route-CourseId="@course.CourseId" class="btn btn-success btn-sm disabled">Matricularme</a>
+                                    }
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @* Paginador *@
+        <div class="d-flex justify-content-center">
+            @Html.PagedListPager(Model,
+                     page => Url.Action("Index", new { page, searchString = ViewBag.CurrentFilter, sortOrder = ViewBag.CurrentSort }),
+                     new PagedListRenderOptions
+        {
+            DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+            DisplayLinkToLastPage = PagedListDisplayMode.Always,
+            DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+            DisplayLinkToNextPage = PagedListDisplayMode.Always,
+
+            MaximumPageNumbersToDisplay = 5,
+            DisplayEllipsesWhenNotShowingAllPageNumbers = true,
+            EllipsesFormat = "…",
+            LinkToFirstPageFormat = "Primera",
+            LinkToLastPageFormat = "Última",
+            LinkToPreviousPageFormat = "Anterior",
+            LinkToNextPageFormat = "Siguiente",
+
+            ContainerDivClasses = new[] { "pagination-container" },
+            UlElementClasses = new[] { "pagination" },
+            LiElementClasses = new[] { "page-item" },
+            PageClasses = new[] { "page-link" }
+        })
+        </div>
+    }
+</div>

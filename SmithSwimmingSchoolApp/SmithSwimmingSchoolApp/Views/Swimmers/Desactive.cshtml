@@ -1,0 +1,63 @@
+﻿@model SmithSwimmingSchoolApp.Models.Swimmer
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<style>
+    body {
+        background: url('/images/FondoPiscina.webp') no-repeat center center fixed;
+        background-size: cover;
+        font-family: Arial, sans-serif;
+    }
+</style>
+
+<div class="content-container">
+    <h1 class="text-center my-2">Dar de baja Nadador</h1>
+    <h3 class="text-center">¿Estás seguro de darle de baja?</h3>
+    <div class="alert alert-warning text-center mt-4" role="alert">
+        <strong>Advertencia:</strong> Al dar de baja este nadador, su cuenta también será desactivada.
+    </div>
+    <div class="mt-4">
+        <h4 class="text-center">Detalles del Nadador</h4>
+        <hr />
+        <dl class="row mx-auto text-center" style="max-width: 390px;">
+            <dt class="col-sm-3 text-end">
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+            <dt class="col-sm-3 text-end">
+                @Html.DisplayNameFor(model => model.Phone_Number)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Phone_Number)
+            </dd>
+            <dt class="col-sm-3 text-center">
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+            <dt class="col-sm-3 text-end">
+                @Html.DisplayNameFor(model => model.Genre)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Genre)
+            </dd>
+            <dt class="col-sm-6 text-center">
+                @Html.DisplayNameFor(model => model.Birth_Date)
+            </dt>
+            <dd class="col-sm-6 text-start">
+                @Html.DisplayFor(model => model.Birth_Date)
+            </dd>
+        </dl>
+
+        <form asp-action="Desactive" class="text-center">
+            <input type="hidden" asp-for="SwimmerId" />
+            <input type="submit" value="Dar de Baja" class="btn btn-danger mt-3" />
+            <a asp-action="Index" class="btn btn-dark mt-3">Volver</a>
+        </form>
+    </div>
+</div>

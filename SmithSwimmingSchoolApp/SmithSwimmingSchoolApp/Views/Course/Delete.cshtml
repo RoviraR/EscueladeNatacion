@@ -1,0 +1,48 @@
+﻿@model SmithSwimmingSchoolApp.Models.Course
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<style>
+    body {
+        background: url('/images/FondoPiscina.webp') no-repeat center center fixed;
+        background-size: cover;
+        font-family: Arial, sans-serif;
+    }
+</style>
+
+<div class="content-container">
+    <h1 class="text-center my-2">Eliminar Curso</h1>
+    <h3 class="text-center">¿Estás seguro de eliminarlo?</h3>
+    <div class="mt-4">
+        <h4 class="text-center">Detalles del Curso</h4>
+        <hr />
+        <dl class="row mx-auto text-center" style="max-width: 300px;">
+            <dt class="col-sm-3 text-end">
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+            <dt class="col-sm-3 text-end">
+                Entrenador
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Coach!.Name)
+            </dd>
+            <dt class="col-sm-3 text-end">
+                @Html.DisplayNameFor(model => model.Places)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Places)
+            </dd>
+        </dl>
+
+        <form asp-action="Delete" class="text-center">
+            <input type="hidden" asp-for="CourseId" />
+            <input type="submit" value="Eliminar" class="btn btn-danger mt-3" />
+            <a asp-action="Index" class="btn btn-dark mt-3">Volver</a>
+        </form>
+    </div>
+</div>

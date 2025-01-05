@@ -1,0 +1,73 @@
+﻿@using SmithSwimmingSchoolApp.Models
+@model IEnumerable<Report>
+
+@{
+    ViewData["Title"] = "Reportes de Progreso";
+}
+
+<style>
+    body {
+        background: url('/images/FondoPiscina.webp') no-repeat center center fixed;
+        background-size: cover;
+        font-family: Arial, sans-serif;
+    }
+</style>
+
+<div class="content-container">
+    @if (User.IsInRole("Coach"))
+    {
+        <h1 class="text-center">Nadador: @ViewBag.Swimmer</h1>
+    }
+    @if (User.IsInRole("Swimmer"))
+    {
+        <h1 class="text-center">Entrenador: @ViewBag.Coach</h1>
+    }
+
+    <h4 class="text-center">Curso: @ViewBag.Course</h4>
+
+    
+
+    <div class="mt-4">
+        <h2>Reportes de Progreso</h2>
+
+        @if (User.IsInRole("Coach"))
+        {
+            <div class="mt-3 mb-3">
+                <a asp-action="AddReport" asp-route-swimmerId="@ViewBag.SwimmerId" asp-route-courseId="@ViewBag.CourseId" class="btn btn-success">Añadir Reporte</a>
+            </div>
+        }
+
+        @if (ViewBag.Message != null)
+        {
+            <div class="alert alert-info">
+                @ViewBag.Message
+            </div>
+        }
+        else
+        {
+            <ul class="list-group">
+                @foreach (var report in Model)
+                {
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>@report.Content</span>
+                        <span>@Html.DisplayFor(modelItem => report.Date)</span>
+                    </li>
+                }
+            </ul>
+        }
+
+        @if (User.IsInRole("Coach"))
+        {
+            <div class="text-center mt-3">
+                <a asp-controller="Course" asp-action="CourseDetails" asp-route-id="@ViewBag.courseId" class="btn btn-dark">Volver</a>
+            </div>
+        }
+
+        @if (User.IsInRole("Swimmer"))
+        {
+            <div class="text-center mt-3">
+                <a asp-controller="Swimmers" asp-action="SwimmerCourses" class="btn btn-dark">Volver</a>
+            </div>
+        }
+    </div>
+</div>

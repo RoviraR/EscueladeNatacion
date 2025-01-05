@@ -1,0 +1,40 @@
+﻿@model SmithSwimmingSchoolApp.Models.Enrollment
+@{
+    ViewData["Title"] = "EnrollSwimmer";
+}
+
+<style>
+    body {
+        background: url('/images/FondoPiscina.webp') no-repeat center center fixed;
+        background-size: cover;
+        font-family: Arial, sans-serif;
+    }
+</style>
+
+<div class="content-container">
+    <h2 class="text-center my-4">Confirmar Matriculación</h2>
+
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h3 class="card-title text-center">¿Estás seguro de que deseas matricularte?</h3>
+        </div>
+        <div class="card-body">
+            <p class="lead text-center">
+                ¿<strong>@ViewBag.Swimmer</strong> estás seguro de que deseas matricularte en el curso <strong>@ViewBag.Course</strong>?
+            </p>
+
+            <form asp-action="EnrollSwimmer">
+                <input asp-for="SwimmerId" type="hidden" name="SwimmerId" value="@ViewBag.SwimmerId" />
+                <input asp-for="CourseId" type="hidden" name="CourseId" value="@ViewBag.CourseId" />
+
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-success btn-lg me-2">
+                        <i class="bi bi-check-circle"></i> Sí, matricularme
+                    </button>
+                    <a asp-controller="Course" asp-action="Index" class="btn btn-secondary btn-lg">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
