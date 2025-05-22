@@ -1,0 +1,46 @@
+﻿@using SmithSwimmingSchoolApp.Models
+@model Report
+
+@{
+    ViewData["Title"] = "AddReport";
+    var enrollment = ViewData["Reportinfo"] as Enrollment;
+}
+
+<style>
+    body {
+        background: url('/images/FondoPiscina.webp') no-repeat center center fixed;
+        background-size: cover;
+        font-family: Arial, sans-serif;
+    }
+</style>
+
+<div class="content-container">
+    <h1 class="text-center">Añadir Reporte: @enrollment!.Swimmer!.Name</h1>
+
+    <h4 class="text-center">Curso: @enrollment.Course!.Title</h4>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <form asp-action="AddReport">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input asp-for="EnrollmentId" hidden="hidden" value="@enrollment.EnrollmentId" class="form-control" />
+
+                <div class="form-group">
+                    <label asp-for="Content" class="control-label"></label>
+                    <textarea asp-for="Content" class="form-control"></textarea>
+                    <span asp-validation-for="Content" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Crear Reporte" class="btn btn-success mt-2" />
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <div class="text-center mt-3">
+        <a asp-controller="Report" asp-action="ReportProgress" asp-route-swimmerId="@enrollment.SwimmerId" asp-route-courseId="@enrollment.CourseId" class="btn btn-dark">Volver</a>
+    </div>
+</div>

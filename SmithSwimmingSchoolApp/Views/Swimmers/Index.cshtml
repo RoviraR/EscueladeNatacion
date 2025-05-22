@@ -1,0 +1,117 @@
+﻿@model PagedList<SmithSwimmingSchoolApp.Models.Swimmer>
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    body {
+        background: url('/images/FondoPiscina.webp') no-repeat center center fixed;
+        background-size: cover;
+        font-family: Arial, sans-serif;
+    }
+</style>
+
+<div class="content-container">
+    <h1 class="text-center my-2">Nadadores</h1>
+
+    <form method="get" class="mb-3">
+        <div class="form-group">
+            <label for="searchString">Buscar por Nombre:</label>
+            <input type="text" name="searchString" value="@ViewBag.CurrentFilter" class="form-control" placeholder="Ingrese el nombre del nadador" />
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">Buscar</button>
+    </form>
+
+    @if (ViewBag.Message != null)
+    {
+        <div class="alert alert-info">
+            @ViewBag.Message
+        </div>
+    }
+    else{
+        <table class="table table-striped table-bordered table-hover mt-2">
+            <thead class="table-dark">
+                <tr>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewBag.NameSortParam" asp-route-searchString="@ViewBag.CurrentFilter">Nombre</a>
+                    </th>
+                    <th>
+                        Teléfono
+                    </th>
+                    <th>
+                        Email
+                    </th>
+                    <th>
+                        Género
+                    </th>
+                    <th>
+                        Fecha de Nacimiento
+                    </th>
+                    <th class="text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr style="@(item.IsActive ? "" : "background-color: #f8d7da;")">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Phone_Number)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Genre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Birth_Date)
+                        </td>
+                        <td class="text-center">
+                            <div class="action-buttons">
+                                <a asp-action="Edit" asp-route-id="@item.SwimmerId" class="btn btn-warning btn-sm">Editar</a>
+                                @if(item.IsActive){
+                                    <a asp-action="Desactive" asp-route-id="@item.SwimmerId" class="btn btn-danger btn-sm">Dar de Baja</a>
+                                }
+                                else{
+                                    <a asp-action="Active" asp-route-id="@item.SwimmerId" class="btn btn-success btn-sm">Dar de Alta</a>
+                                }
+                                
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @* Paginacion *@
+        <div class="d-flex justify-content-center">
+            @Html.PagedListPager(Model,
+                     page => Url.Action("Index", new { page, searchString = ViewBag.CurrentFilter, sortOrder = ViewBag.CurrentSort }),
+                     new PagedListRenderOptions
+        {
+            DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+            DisplayLinkToLastPage = PagedListDisplayMode.Always,
+            DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+            DisplayLinkToNextPage = PagedListDisplayMode.Always,
+
+            MaximumPageNumbersToDisplay = 5,
+            DisplayEllipsesWhenNotShowingAllPageNumbers = true,
+            EllipsesFormat = "…",
+            LinkToFirstPageFormat = "Primera",
+            LinkToLastPageFormat = "Última",
+            LinkToPreviousPageFormat = "Anterior",
+            LinkToNextPageFormat = "Siguiente",
+
+            ContainerDivClasses = new[] { "pagination-container" },
+            UlElementClasses = new[] { "pagination" },
+            LiElementClasses = new[] { "page-item" },
+            PageClasses = new[] { "page-link" }
+        })
+        </div>
+    }
+</div>

@@ -1,0 +1,97 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Registrarse";
+}
+
+<style>
+    body {
+        background: url('/images/FondoPiscina.webp') no-repeat center center fixed;
+        background-size: cover;
+        font-family: Arial, sans-serif;
+    }
+
+    .card-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 0vh;
+    }
+
+    .card {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        width: 100%;
+        max-width: 400px;
+    }
+</style>
+
+<div class="card-container">
+    <div class="card">
+        <h1 class="text-center">@ViewData["Title"]</h1>
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <h2 class="text-center">Crea una nueva cuenta</h2>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+            <!-- Campo Email -->
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="correo@ejemplo.com" />
+                <label asp-for="Input.Email">Correo Electrónico</label>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+
+            <!-- Campo Contraseña -->
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="contraseña" />
+                <label asp-for="Input.Password">Contraseña</label>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+
+            <!-- Campo Confirmar Contraseña -->
+            <div class="form-floating mb-3">
+                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="confirma tu contraseña" />
+                <label asp-for="Input.ConfirmPassword">Confirma tu Contraseña</label>
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <!-- Campo Nombre -->
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Name" class="form-control" placeholder="Nombre completo" />
+                <label asp-for="Input.Name">Nombre Completo</label>
+                <span asp-validation-for="Input.Name" class="text-danger"></span>
+            </div>
+
+            <!-- Campo Teléfono -->
+            <div class="form-floating mb-3">
+                <input asp-for="Input.PhoneNumber" class="form-control" placeholder="Teléfono" />
+                <label asp-for="Input.PhoneNumber">Teléfono</label>
+                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+            </div>
+
+            <!-- Campo Género -->
+            <div class="form-floating mb-3">
+                <select asp-for="Input.Genre" class="form-control">
+                    <option value="1">Masculino</option>
+                    <option value="2">Femenino</option>
+                </select>
+                <label asp-for="Input.Genre">Género</label>
+                <span asp-validation-for="Input.Genre" class="text-danger"></span>
+            </div>
+
+            <!-- Campo Fecha de Nacimiento -->
+            <div class="form-floating mb-3">
+                <input asp-for="Input.BirthDate" class="form-control" type="date" />
+                <label asp-for="Input.BirthDate">Fecha de Nacimiento</label>
+                <span asp-validation-for="Input.BirthDate" class="text-danger"></span>
+            </div>
+
+            <button id="registerSubmit" type="submit" class="w-100 btn btn-primary">Registrarse</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,64 @@
+﻿@using SmithSwimmingSchoolApp.Models
+@model Coach
+@{
+    ViewData["Title"] = "EditProfile";
+}
+
+<style>
+    body {
+        background: url('/images/FondoPiscina.webp') no-repeat center center fixed;
+        background-size: cover;
+        font-family: Arial, sans-serif;
+    }
+</style>
+
+<div class="content-container">
+    <h1 class="text-center my-4">Editar Perfil</h1>
+
+    @if (ViewBag.Mensaje != null)
+    {
+        <div id="mensaje-alerta" class="alert alert-success">
+            @ViewBag.Mensaje
+        </div>
+    }
+
+    <form asp-action="EditProfile" method="post">
+        <input hidden asp-for="CoachId" value="@Model.CoachId" />
+
+        <div class="form-group">
+            <label asp-for="Name" class="control-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Phone_Number" class="control-label"></label>
+            <input asp-for="Phone_Number" class="form-control" />
+            <span asp-validation-for="Phone_Number" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Email" class="control-label"></label>
+            <input asp-for="Email" class="form-control" readonly />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-success mt-2">Guardar Cambios</button>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        <script>
+            // Espera 5 segundos (5000 milisegundos) y oculta el mensaje
+            setTimeout(function () {
+                var alertBox = document.getElementById('mensaje-alerta');
+                if (alertBox) {
+                    alertBox.style.transition = "opacity 1s"; // Animación de desvanecimiento
+                    alertBox.style.opacity = 0; // Reduce opacidad
+                    setTimeout(() => alertBox.remove(), 100); // Elimina el elemento tras desvanecerse
+                }
+            }, 1700); // Tiempo en milisegundos
+        </script>
+    }
+}
